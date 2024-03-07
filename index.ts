@@ -119,6 +119,15 @@ function draw() {
   g.clearRect(0, 0, canvas.width, canvas.height);
 
   // Draw map
+  // extract method
+  drawMap(map);
+
+  // Draw player
+  g.fillStyle = "#ff0000";
+  g.fillRect(playerx * TILE_SIZE, playery * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+}
+
+function drawMap(map: Tile[][]){
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {
       if (map[y][x] === Tile.FLUX)
@@ -138,10 +147,6 @@ function draw() {
         g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
   }
-
-  // Draw player
-  g.fillStyle = "#ff0000";
-  g.fillRect(playerx * TILE_SIZE, playery * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 }
 
 function gameLoop() {
@@ -168,4 +173,3 @@ window.addEventListener("keydown", e => {
   else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(Input.RIGHT);
   else if (e.key === DOWN_KEY || e.key === "s") inputs.push(Input.DOWN);
 });
-
