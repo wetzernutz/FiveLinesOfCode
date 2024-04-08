@@ -18,9 +18,7 @@ interface Input {
   isDown(): boolean;
   isLeft(): boolean;
   isRight(): boolean;
-  // push code into class
-  // new method to handle input
-  // input is now the object itself
+
   handleInput(): void;
 }
 
@@ -29,8 +27,7 @@ class Up implements Input {
   isDown() { return false; }
   isLeft() { return false; }
   isRight() { return false; }
-  // copy original methods
-  // input now refers to "this" object
+
   handleInput() {
     moveVertical(-1);
   }
@@ -139,13 +136,9 @@ function update() {
 function handleInputs() {
   while (inputs.length > 0) {
     let current = inputs.pop();
-    handleInput(current);
+    // INLINE METHOD, since it doesnt violate the (either call or pass rule)
+    current.handleInput();
   }
-}
-
-function handleInput(input: Input) {
-  // it now calls handleInput using the input object itself
-  input.handleInput();
 }
 
 function updateMap() {
