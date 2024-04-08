@@ -26,3 +26,6 @@ If you have feedback or comments on this repo don't hesitate to write me a messa
 
 Thank you for checking it out.
 
+Note to self:
+type "tsc -w" in terminal to watch
+open index.html
