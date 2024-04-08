@@ -13,20 +13,27 @@ enum Tile {
   KEY2, LOCK2
 }
 
-// create interface for input enum with check methods
 interface Input {
   isUp(): boolean;
   isDown(): boolean;
   isLeft(): boolean;
   isRight(): boolean;
+  // push code into class
+  // new method to handle input
+  // input is now the object itself
+  handleInput(): void;
 }
 
-// implement interface for each enum value
 class Up implements Input {
   isUp() { return true; }
   isDown() { return false; }
   isLeft() { return false; }
   isRight() { return false; }
+  // copy original methods
+  // input now refers to "this" object
+  handleInput() {
+    moveVertical(-1);
+  }
 }
 
 class Down implements Input {
@@ -34,6 +41,10 @@ class Down implements Input {
   isDown() { return true; }
   isLeft() { return false; }
   isRight() { return false; }
+
+  handleInput() {
+    moveVertical(1);
+  }
 }
 
 class Left implements Input {
@@ -41,6 +52,10 @@ class Left implements Input {
   isDown() { return false; }
   isLeft() { return true; }
   isRight() { return false; }
+
+  handleInput() {
+    moveHorizontal(-1);
+  }
 }
 
 class Right implements Input {
@@ -48,6 +63,10 @@ class Right implements Input {
   isDown() { return false; }
   isLeft() { return false; }
   isRight() { return true; }
+
+  handleInput() {
+    moveHorizontal(1);
+  }
 }
 
 let playerx = 1;
@@ -125,14 +144,8 @@ function handleInputs() {
 }
 
 function handleInput(input: Input) {
-  if (input.isLeft())
-    moveHorizontal(-1);
-  else if (input.isRight())
-    moveHorizontal(1);
-  else if (input.isUp())
-    moveVertical(-1);
-  else if (input.isDown())
-    moveVertical(1);
+  // it now calls handleInput using the input object itself
+  input.handleInput();
 }
 
 function updateMap() {
@@ -219,7 +232,6 @@ const UP_KEY = "ArrowUp";
 const RIGHT_KEY = "ArrowRight";
 const DOWN_KEY = "ArrowDown";
 window.addEventListener("keydown", e => {
-  // replaces enum calls with new instances of the respective class
   if (e.key === LEFT_KEY || e.key === "a") inputs.push(new Left());
   else if (e.key === UP_KEY || e.key === "w") inputs.push(new Up());
   else if (e.key === RIGHT_KEY || e.key === "d") inputs.push(new Right());
